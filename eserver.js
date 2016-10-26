@@ -1,9 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser')
 var request = require('superagent');
-var fs = require('fs');
 
 
 var clientID = '6ea93f8aa8b00ee5d448',
@@ -11,8 +9,21 @@ var clientID = '6ea93f8aa8b00ee5d448',
     apiUrl = 'https://api.artsy.net/api/tokens/xapp_token',
     xappToken;
 
-var urlencodedParser = bodyParser.urlencoded({ extended: true })
+var getPainting = function(token, call){
+  //example request call /artists/andy-warhol
+  //https://api.artsy.net/api/artworks?gene_id=4e5e41670d2c670001030350
+  request
+    .get('https://api.artsy.net/api/'+call)
+    .set('x-xapp-token', token)
+    .set('Accept', 'application/json')
+    .end(function(err, res){
+      if (err) {
+        console.log(err.error);
+      }
 
+      console.log(res.body);
+    });
+}
 
 request
   .post(apiUrl)
@@ -21,35 +32,42 @@ request
     if(err){
       console.log(err);
     }else {
+
+       /*
+
+       Passing in a parameter of "sample" will redirect you to the
+       canonical URL for a random element in the collection.
+       It can be combo'ed with additional filter parameters, so one
+       could query for a random upcoming show with:
+       "https://api.artsy.net/api/shows?status=upcoming&sample=1"
+
+       */
+
+       /*
+       Sizes suported by the API:
+
+       //TODO Mke the function automaticly select the largest paintings avalible
+       
+
+       featured
+       general
+       large
+       larger
+       medium
+       square
+       tall
+
+       */
+
+       getPainting(res.body.token, "shows?sample=1");
+
         xappToken = res.body.token;
         //console.log(xappToken);
     }
-  });
-
-
-
-app.use(cookieParser());
+});
 
 // set a cookie
 //Executes every time a request is made
-app.use(function (req, res, next) {
-  // check if client sent cookie
-  var cookie = req.cookies.cookieName;
-  if (cookie === undefined)
-  {
-    // no: set a new cookie
-    var randomNumber=Math.random().toString();
-    randomNumber=randomNumber.substring(2,randomNumber.length);
-    res.cookie('artToken',xappToken, { maxAge: 10000, httpOnly: true });
-    console.log('cookie created successfully');
-  }
-  else
-  {
-    // yes, cookie was already present
-    //console.log('cookie exists', cookie);
-  }
-  next(); // <-- important!
-});
 
 app.use(express.static('public'));
 
@@ -57,35 +75,16 @@ app.get('/', function(request, response){
   response.sendFile("index.html");
 });
 
-/*
+//TODO Api for client to get the daily painting
 
-app.get('/process_get', function(request, response){
-  query = {
-    first_name:request.query.first_name,
-    last_name:request.query.last_name
-  };
+//TODO Interupts every hour to get a new painting from the api
 
-  response.send(JSON.stringify(query));
+app.get('/api',function(req, res){
+  res.send(JSON_ OF_PAINTING_HERE)
+})
 
-});
-*/
 
-/*
-app.post('/process_post', urlencodedParser, function(request, response){
-  console.log(request.query.first_name);
-  console.log(request);
-
-  query = {
-    first_name:request.body.first_name,
-    last_name:request.body.last_name
-  };
-
-  response.send(JSON.stringify(query));
-
-});
-*/
-
-var portNr = 8001;
+var portNr = 8002;
 
 var server = app.listen(portNr, function(){
   console.log("Server on port: " + server.address().port);
