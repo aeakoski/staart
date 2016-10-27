@@ -9,7 +9,9 @@ var clientID = '6ea93f8aa8b00ee5d448',
     apiUrl = 'https://api.artsy.net/api/tokens/xapp_token',
     xappToken;
 
-var getPainting = function(token, call){
+var paintingJSON={};
+
+var fetchPainting = function(token, call){
   //example request call /artists/andy-warhol
   //https://api.artsy.net/api/artworks?gene_id=4e5e41670d2c670001030350
   request
@@ -19,9 +21,13 @@ var getPainting = function(token, call){
     .end(function(err, res){
       if (err) {
         console.log(err.error);
+
+      }else{
+        console.log(res.body);
+        paintingJSON =  res.body;
       }
 
-      console.log(res.body);
+
     });
 }
 
@@ -47,7 +53,7 @@ request
        Sizes suported by the API:
 
        //TODO Mke the function automaticly select the largest paintings avalible
-       
+
 
        featured
        general
@@ -59,7 +65,7 @@ request
 
        */
 
-       getPainting(res.body.token, "shows?sample=1");
+       fetchPainting(res.body.token, "shows?sample=1");
 
         xappToken = res.body.token;
         //console.log(xappToken);
@@ -80,7 +86,7 @@ app.get('/', function(request, response){
 //TODO Interupts every hour to get a new painting from the api
 
 app.get('/api',function(req, res){
-  res.send(JSON_ OF_PAINTING_HERE)
+  res.send(paintingJSON);
 })
 
 
