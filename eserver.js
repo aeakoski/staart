@@ -65,7 +65,7 @@ request
 
        */
 
-       fetchPainting(res.body.token, "shows?sample=1");
+       fetchPainting(res.body.token, "artworks?sample=1");
 
         xappToken = res.body.token;
         //console.log(xappToken);
