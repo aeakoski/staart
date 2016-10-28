@@ -1,6 +1,6 @@
 
 
-html { background-image: url(http://typespiration.com/wp-content/themes/typespiration/images/quote.png);
+html { background-color: #ededed;
   background-position: 10px 10%;
   background-repeat: no-repeat no-repeat;
   padding: 50px 150px; }
@@ -15,6 +15,7 @@ html { background-image: url(http://typespiration.com/wp-content/themes/typespir
 
 
 .text {
+  display: inline-block;
   font-size: 75px;
   line-height: 74px;
   font-weight: 700;
