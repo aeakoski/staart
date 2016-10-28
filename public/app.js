@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $.get("http://127.0.0.1:8002/api/painting", function(data){
+    $.get("/api/painting", function(data){
         console.log(data);
         if (data.image_versions.length != 0) {
           var l = data.image_versions;
@@ -45,19 +45,20 @@ $(document).ready(function(){
             width="auto";
           }
 
-          $('.canvas').html('<img  src="'+ link+'" height="'+ height+'" width="'+width+'" alt="" />');
+          $('.canvas').html('<img  id="canv" class="center" src="'+ link+'" height="'+ height+'" width="'+width+'" alt="" />');
 
 
         }else {
-          $('.canvas').html('<img  src="'+ data._links.thumbnail.href+'" height="400" width="auto" alt="" />');
+          $('.canvas').html('<img  id="canv" class="center" src="'+ data._links.thumbnail.href+'" height="400" width="auto" alt="" />');
         }
+
         $('.date').html(data.date);
         $(".title").html(data.title);
         $(".description").html(data.collecting_institution);
         $('.medium').html(data.medium);
     })
 
-    $.get("http://127.0.0.1:8002/api/artist", function(data){
+    $.get("/api/artist", function(data){
       //console.log(data);
 
       $('.artist').html(data.name);

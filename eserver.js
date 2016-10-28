@@ -106,7 +106,7 @@ fetchToken();
 
 if (!intervalExists) {
     intervalExists = true;
-    setInterval(fetchPainting, 1000*30);
+    setInterval(fetchPainting, 1000*60);
 }
 
 
@@ -128,6 +128,7 @@ app.get('/api/artist', function(req,  res){
 var portNr = 8002;
 
 var server = app.listen(portNr, function(){
+  console.log(server.address())
   console.log("Server on port: " + server.address().port);
 
 });
