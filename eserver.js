@@ -12,7 +12,7 @@ var clientID = '6ea93f8aa8b00ee5d448',
 var paintingJSON={};
 var artistJSON = {};
 
-var fetchPainting = function(token, call){
+var fetchArtist = function(token, call){
   //example request call /artists/andy-warhol
   //https://api.artsy.net/api/artworks?gene_id=4e5e41670d2c670001030350
   request
@@ -25,8 +25,8 @@ var fetchPainting = function(token, call){
 
       }else{
 
-        console.log(res.body);
-        artistJSON =  res.body;
+        console.log(res.body._embedded.artists[0]);
+        artistJSON =  res.body._embedded.artists[0];
       }
 
 
@@ -45,9 +45,8 @@ var fetchPainting = function(token, call){
         console.log(err.error);
 
       }else{
-        fetchArtist(token, res._links.artists.href.substring(26));
-        console.log()
-        console.log(res.body);
+        fetchArtist(token, res.body._links.artists.href.substring(26));
+
         paintingJSON =  res.body;
       }
 
@@ -117,7 +116,7 @@ app.get('/api/painting',function(req, res){
   res.send(paintingJSON);
 })
 
-app.get('/api/artist', function(req res){
+app.get('/api/artist', function(req,  res){
   res.send(artistJSON);
 })
 var portNr = 8002;
