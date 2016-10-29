@@ -31,7 +31,7 @@ var fetchArtist = function(call){
     });
 }
 
-var fetchPainting = function(){
+function fetchPainting(){
   /*
 
   Passing in a parameter of "sample" will redirect you to the
@@ -106,7 +106,7 @@ fetchToken();
 
 if (!intervalExists) {
     intervalExists = true;
-    //setInterval(fetchPainting, 1000*60);
+    setInterval(fetchPainting, 10000);
 }
 
 
@@ -114,8 +114,14 @@ if (!intervalExists) {
 app.use(express.static('public'));
 
 app.get('/', function(request, response){
-  response.sendFile("index.html");
-});
+  if ( (artistJSON.id==undefined) && (paintingJSON.dimensions==undefined)) {
+    response.sendFile("public/index-none.html" ,{ root: __dirname });
+  }else if (paintingJSON.dimensions.cm.width / paintingJSON.dimensions.cm.height >= 2) {
+    response.sendFile("public/index-wide.html" ,{ root: __dirname });
+  }else {
+    response.sendFile("public/index-high.html",{ root: __dirname });
+    }
+  });
 
 app.get('/api/painting',function(req, res){
   res.send(paintingJSON);
