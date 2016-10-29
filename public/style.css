@@ -1,36 +1,42 @@
+html {
+  min-height: 100%;
+  background-color: #ededed;
+  background-size: cover;
+}
 
 .wrapper {
-
-  padding: 50px 150px;
-min-height: 100%;
+  padding-top: 120px;
+  min-height: 100%;
 }
 
-html {min-height: 100%;
-background-color: #ededed;
-background-size: cover;}
-
-.col-12{
-  display: inline-block;
-  width: 100%;
-}
-.col-10{
-  display: inline-block;
-  width:83%;
+.col{
+  display: block;
+  float:left;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.col-6{
-  display: inline-block;
-  width:49%;
-}
+.col-12{width: 100%;}
+.col-10{width:83%;}
+.col-6{width:49%;}
+.col-5{width:41%;}
+.col-1{ width:8%;}
 
-.col-5{
-  display: inline-block;
-  width:41%;
-}
+@media only screen and (max-width: 1080px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+        width: 100%;
+    }
 
-.col-1{
-  display: inline-block;
-  width:8%;
+    .right{
+      text-align: center;
+    }
+
+    .wrapper{padding-top: 50px;}
+
+    .left{
+      margin-bottom: 25px;
+    }
 }
 
 .block{
@@ -51,6 +57,12 @@ background-size: cover;}
   font-family: 'Libre Baskerville', serif;
 }
 
+.middle{
+  background-color: #ff4a4a;
+  width: 2px;
+  height: 800px;
+}
+
 .red{color: #f2f2f2; background: #ff4a4a;}
 .grey { background: #f2f2f2; color: #ff4a4a; }
 
@@ -58,6 +70,10 @@ background-size: cover;}
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.left{
+  border-right: 25px solid #ff4a4a;
 }
 
 .triangle-right {
@@ -68,7 +84,6 @@ background-size: cover;}
 	border-left: 100px solid #ff5e5e;
 	border-bottom: 100px solid transparent;
 }
-
 .triangle-down {
   position: fixed;
 	width: 0;

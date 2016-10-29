@@ -106,7 +106,7 @@ fetchToken();
 
 if (!intervalExists) {
     intervalExists = true;
-    setInterval(fetchPainting, 1000*60);
+    //setInterval(fetchPainting, 1000*60);
 }
 
 
