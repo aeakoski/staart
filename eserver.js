@@ -80,6 +80,7 @@ function fetchPainting(){
 }
 
 var fetchToken = function(){
+  //Token validd for 5 days
   console.log("Token Begin");
   request
     .post(apiUrl)
@@ -90,6 +91,15 @@ var fetchToken = function(){
       }else {
 
           xappToken = res.body.token;
+          console.log(res.body);
+
+          /*
+          { type: 'xapp_token',
+  token: 'JvTPWe4WsQO-xqX6Bts49tvQMenYJY_eHmpmimI4vV_AT5ZSrjiNxFene9hLyN4AHD2uoaOQal6SJ3HAk9JO87Bc9kjSFHXcownhWi93RyPUif4XZ44wQPr-bUXKllPVwVIj_J_7EscQ6bv34cmrByT82idLBmLCCgz2zGaoP4UOcfUnfeeur3Yo2aEI9br7PQnpdx8WSi-qjpln7ilLq4UkDXyN7pdr41kIYJnNYW0=',
+  expires_at: '2016-11-05T08:26:44+00:00',
+  _links: {} }
+
+          */
 
           //Token to test error message
           //xappToken = "JvTPWe4WsQO-xqX6Bts49odIKiJo2bM7jYmadA9XZu1fiJos49Cx1pbq8Y4crkR_yoEblmajLq8rshz56kMdL-nKz1bl-3Wy_IQ6XoRUEdGxpZcx9StwPgKbST4rK5NHqAX6JI2xg4x3AkzFxEJ7pb_FiXa1p-krV9V2UGgAVwSlVNtlmcylV8WvEQ03UwIeyfGpMnb1fEaPkVWi4yoxMTXT6nw_BYkS0t8mgvXJ6wE=";
