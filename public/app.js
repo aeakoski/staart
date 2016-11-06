@@ -38,8 +38,8 @@ $(document).ready(function(){
           var height;
           var width;
           if (data.dimensions.cm.height && data.dimensions.cm.width) {
-            height = data.dimensions.cm.height*10;
-            width = data.dimensions.cm.width*10;
+            height = data.dimensions.cm.height;
+            width = data.dimensions.cm.width;
           }else{
             height="auto";
             width="auto";
