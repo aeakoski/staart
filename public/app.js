@@ -45,7 +45,7 @@ $(document).ready(function(){
             width="auto";
           }
 
-          $('.canvas').html('<img  id="canv" class="center" src="'+ link+'" height="'+ height+'" width="'+width+'" alt="" />');
+          $('.canvas').html('<img  id="canv" class="center" src="'+ link+'" height="'+ Math.log10(height)*300+'" width="auto" alt="" />');
 
 
         }else {
