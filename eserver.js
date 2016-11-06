@@ -119,9 +119,10 @@ if (!intervalExists) {
     setInterval(fetchPainting, 10000);
 }
 
+app.set('port', (process.env.PORT || 8002));
 
 //Executes every time a request is made
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response){
   if ( (artistJSON.id==undefined) && (paintingJSON.dimensions==undefined)) {
@@ -141,10 +142,9 @@ app.get('/api/artist', function(req,  res){
   res.send(artistJSON);
 });
 
-var portNr = 8002;
 
-var server = app.listen(portNr, function(){
+var server = app.listen(app.get('port'), function(){
   //console.log(server.address())
-  //console.log("Server on port: " + server.address().port);
+  console.log("Server on port: " + app.get('port'));
 
 });
