@@ -116,7 +116,7 @@ fetchToken();
 
 if (!intervalExists) {
     intervalExists = true;
-    setInterval(fetchPainting, 10000);
+    setInterval(fetchPainting, (1000*60*60));
 }
 
 app.set('port', (process.env.PORT || 8002));
