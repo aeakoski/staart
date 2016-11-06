@@ -3,6 +3,9 @@ var app = express();
 var bodyParser = require('body-parser');
 var request = require('superagent');
 
+var requestIntervall = (1000*60*60);
+var demoIntervall = (1000*10);
+
 var clientID = '6ea93f8aa8b00ee5d448',
     clientSecret = '04079fc5158cae176d9f598cc81f153e',
     apiUrl = 'https://api.artsy.net/api/tokens/xapp_token',
@@ -116,7 +119,7 @@ fetchToken();
 
 if (!intervalExists) {
     intervalExists = true;
-    setInterval(fetchPainting, (1000*60*60));
+    setInterval(fetchPainting, requestIntervall);
 }
 
 app.set('port', (process.env.PORT || 8002));
@@ -132,14 +135,19 @@ app.get('/', function(request, response){
   }else {
     response.sendFile("public/index-high.html",{ root: __dirname });
     }
-  });
-
-app.get('/api/painting',function(req, res){
-  res.send(paintingJSON);
 });
 
-app.get('/api/artist', function(req,  res){
-  res.send(artistJSON);
+app.get('/fetch',function(request, response){
+  fetchPainting();
+  response.sendFile("public/index-none.html" ,{ root: __dirname });
+});
+
+app.get('/api/painting',function(request, response){
+  response.send(paintingJSON);
+});
+
+app.get('/api/artist', function(request, response){
+  response.send(artistJSON);
 });
 
 
