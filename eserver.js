@@ -26,7 +26,7 @@ var fetchArtist = function(call){
         artistJSON =  res.body._embedded.artists[0];
       }
 
-      console.log("Artist End");
+      //console.log("Artist End");
 
     });
 }
@@ -42,7 +42,7 @@ function fetchPainting(){
 
   */
 
-  console.log("Painting Begin");
+  //console.log("Painting Begin");
   request
     .get('https://api.artsy.net/api/'+ 'artworks?sample=1')
     .set('x-xapp-token', xappToken)
@@ -81,7 +81,7 @@ function fetchPainting(){
 
 var fetchToken = function(){
   //Token validd for 5 days
-  console.log("Token Begin");
+  //console.log("Token Begin");
   request
     .post(apiUrl)
     .send({ client_id: clientID, client_secret: clientSecret })
@@ -91,7 +91,7 @@ var fetchToken = function(){
       }else {
 
           xappToken = res.body.token;
-          console.log(res.body);
+          //console.log(res.body);
 
           /*
           { type: 'xapp_token',
@@ -104,7 +104,7 @@ var fetchToken = function(){
           //Token to test error message
           //xappToken = "JvTPWe4WsQO-xqX6Bts49odIKiJo2bM7jYmadA9XZu1fiJos49Cx1pbq8Y4crkR_yoEblmajLq8rshz56kMdL-nKz1bl-3Wy_IQ6XoRUEdGxpZcx9StwPgKbST4rK5NHqAX6JI2xg4x3AkzFxEJ7pb_FiXa1p-krV9V2UGgAVwSlVNtlmcylV8WvEQ03UwIeyfGpMnb1fEaPkVWi4yoxMTXT6nw_BYkS0t8mgvXJ6wE=";
 
-          console.log("Token End");
+          //console.log("Token End");
 
           fetchPainting();
       }
@@ -144,7 +144,7 @@ app.get('/api/artist', function(req,  res){
 var portNr = 8002;
 
 var server = app.listen(portNr, function(){
-  console.log(server.address())
-  console.log("Server on port: " + server.address().port);
+  //console.log(server.address())
+  //console.log("Server on port: " + server.address().port);
 
 });
