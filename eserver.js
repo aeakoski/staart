@@ -128,7 +128,7 @@ app.set('port', (process.env.PORT || 8002));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response){
-  if ( (artistJSON.id==undefined) && (paintingJSON.dimensions==undefined)) {
+  if ( (artistJSON.id === undefined) && (paintingJSON.dimensions==undefined)) {
     response.sendFile("public/index-none.html" ,{ root: __dirname });
   }else if (paintingJSON.dimensions.cm.width / paintingJSON.dimensions.cm.height >= 2) {
     response.sendFile("public/index-wide.html" ,{ root: __dirname });
