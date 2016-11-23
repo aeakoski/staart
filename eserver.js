@@ -45,6 +45,27 @@ function fetchPainting(){
 
   */
 
+  /*
+Errorkoden jag får är:
+
+2016-11-22T16:13:05.990048+00:00 app[web.1]: TypeError: Cannot read property 'id' of undefined
+2016-11-22T16:13:05.990058+00:00 app[web.1]:     at /app/eserver.js:131:19
+2016-11-22T16:13:05.990059+00:00 app[web.1]:     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2016-11-22T16:13:05.990060+00:00 app[web.1]:     at next (/app/node_modules/express/lib/router/route.js:131:13)
+2016-11-22T16:13:05.990061+00:00 app[web.1]:     at Route.dispatch (/app/node_modules/express/lib/router/route.js:112:3)
+2016-11-22T16:13:05.990061+00:00 app[web.1]:     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2016-11-22T16:13:05.990062+00:00 app[web.1]:     at /app/node_modules/express/lib/router/index.js:277:22
+2016-11-22T16:13:05.990063+00:00 app[web.1]:     at Function.process_params (/app/node_modules/express/lib/router/index.js:330:12)
+2016-11-22T16:13:05.990063+00:00 app[web.1]:     at next (/app/node_modules/express/lib/router/index.js:271:10)
+2016-11-22T16:13:05.990064+00:00 app[web.1]:     at SendStream.error (/app/node_modules/express/node_modules/serve-static/index.js:121:7)
+2016-11-22T16:13:05.990065+00:00 app[web.1]:     at emitOne (events.js:77:13)
+2016-11-22T16:13:13.635948+00:00 heroku[router]: at=info method=GET path="/fetch" host=staart.herokuapp.com request_id=982ca2a9-a2ff-4879-ac7f-cf04ee6d4595 fwd="130.229.158.59" dyno=web.1 connect=1ms service=17ms status=200 bytes=1955
+
+
+
+
+  */
+
   //console.log("Painting Begin");
   request
     .get('https://api.artsy.net/api/'+ 'artworks?sample=1')
@@ -139,11 +160,14 @@ app.get('/', function(request, response){
 
 app.get('/fetch',function(request, response){
   fetchPainting();
+
   response.sendFile("public/index-none.html" ,{ root: __dirname });
 });
 
 app.get('/api/painting',function(request, response){
   response.send(paintingJSON);
+  console.log([paintingJSON].length);
+  console.log([artistJSON].length);
 });
 
 app.get('/api/artist', function(request, response){
