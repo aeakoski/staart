@@ -12,9 +12,13 @@ var clientID = '6ea93f8aa8b00ee5d448',
     xappToken,
     artistLink,
     intervalExists = false;
+    viewed = true; //Init value to make the first fetch
 
 var paintingJSON={};
 var artistJSON = {};
+
+var paintingBuffer = {};
+var artistBuffer = {};
 
 var fetchArtist = function(call){
   request
@@ -26,8 +30,11 @@ var fetchArtist = function(call){
         console.log(err.error);
       }else{
         //console.log(res.body._embedded.artists[0]);
-        artistJSON =  res.body._embedded.artists[0];
+        artistBuffer =  res.body._embedded.artists[0];
       }
+
+      paintingJSON = paintingBuffer;
+      artistJSON = artistBuffer;
 
       //console.log("Artist End");
 
@@ -35,6 +42,14 @@ var fetchArtist = function(call){
 }
 
 function fetchPainting(){
+  //If no one has wied our last fetched painting, it is redundant to fetch another and waist api calls.
+  if (!viewed) {
+    return;
+  }
+
+  viewed = false;
+
+  console.log("eyyow");
   /*
 
   Passing in a parameter of "sample" will redirect you to the
@@ -95,7 +110,7 @@ Errorkoden jag får är:
         tall
         */
 
-        paintingJSON =  res.body;
+        paintingBuffer =  res.body;
       }
 
       fetchArtist(artistLink);
@@ -128,7 +143,7 @@ var fetchToken = function(){
           //Token to test error message
           //xappToken = "JvTPWe4WsQO-xqX6Bts49odIKiJo2bM7jYmadA9XZu1fiJos49Cx1pbq8Y4crkR_yoEblmajLq8rshz56kMdL-nKz1bl-3Wy_IQ6XoRUEdGxpZcx9StwPgKbST4rK5NHqAX6JI2xg4x3AkzFxEJ7pb_FiXa1p-krV9V2UGgAVwSlVNtlmcylV8WvEQ03UwIeyfGpMnb1fEaPkVWi4yoxMTXT6nw_BYkS0t8mgvXJ6wE=";
 
-          //console.log("Token End");
+          console.log("Token End");
 
           fetchPainting();
       }
@@ -149,7 +164,11 @@ app.set('port', (process.env.PORT || 8002));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response){
-  if ( (artistJSON.id === undefined) && (paintingJSON.dimensions==undefined)) {
+
+  //This is where all the shit happenes
+  viewed = true;
+
+  if ( (artistJSON.id === undefined) && (paintingJSON.dimensions===undefined)) {
     response.sendFile("public/index-none.html" ,{ root: __dirname });
   }else if (paintingJSON.dimensions.cm.width / paintingJSON.dimensions.cm.height >= 2) {
     response.sendFile("public/index-wide.html" ,{ root: __dirname });
@@ -166,8 +185,6 @@ app.get('/fetch',function(request, response){
 
 app.get('/api/painting',function(request, response){
   response.send(paintingJSON);
-  console.log([paintingJSON].length);
-  console.log([artistJSON].length);
 });
 
 app.get('/api/artist', function(request, response){
