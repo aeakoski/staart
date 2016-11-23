@@ -1,6 +1,44 @@
+wideBase = '<div class="canvas col col-12"><!--Painting canvas image--></div>\
+<div class="vspace-50 col col-12"></div>\
+\
+<div class="col-10 center">\
+  <div class="title text red"><!--Painting title--></div>\
+  <div class="text">\
+    <span class="grey">By </span>\
+    <span class="artist red"><!--Artist name--></span>\
+    <span class="date grey"><!--Creation date--></span>\
+    <div class="medium text grey"><!--Painting medium--></div>\
+  </div>\
+</div>'
+
+highBase = '<div class="left canvas col col-6">\
+  <!--Painting canvas image-->\
+</div>\
+\
+<div class="right col col-5">\
+  <div class="title text red">\
+    <!--Painting title-->\
+    <span>La´ vi en rose</span>\
+  </div>\
+\
+  <div class="text">\
+    <span class="grey">By </span>\
+    <span class="artist red"><!--Artist name--></span>\
+    <span class="date grey"><!--Creation date--></span>\
+  </div>\
+\
+  <div class="medium text grey"><!--Painting medium--></div>\
+  <div class="description text grey"></div>\
+</div>'
+
+
 $(document).ready(function(){
     $.get("/api/painting", function(data){
         console.log(data);
+        console.log("Jag byter nu!!!!");
+        $('#wideBase').html(wideBase);
+        $('#highBase').html(highBase);
+
         if (data.image_versions.length != 0) {
           var l = data.image_versions;
           console.log(l);

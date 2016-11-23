@@ -165,14 +165,16 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response){
 
-  //This is where all the shit happenes
+  //This is where all the shit happenes when i try reading ID
   viewed = true;
 
   if ( (artistJSON.id === undefined) && (paintingJSON.dimensions===undefined)) {
     response.sendFile("public/index-none.html" ,{ root: __dirname });
   }else if (paintingJSON.dimensions.cm.width / paintingJSON.dimensions.cm.height >= 2) {
     response.sendFile("public/index-wide.html" ,{ root: __dirname });
+    console.log("Wide!");
   }else {
+    console.log("High");
     response.sendFile("public/index-high.html",{ root: __dirname });
     }
 });
