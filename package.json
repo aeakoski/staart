@@ -2,18 +2,16 @@
   "name": "hart",
   "version": "0.1.0",
   "description": "Artworks at home, in your browser",
-  "engines":{
-    "node":"4.2.6"
+  "engines": {
+    "node": "4.2.6"
   },
   "main": "eserver.js",
   "dependencies": {
-    "body-parser":"1.15.2",
-    "express":"4.14.0",
-    "superagent":"2.3.0"
-
+    "body-parser": "1.15.2",
+    "express": "^4.14.0",
+    "superagent": "^2.3.0"
   },
   "devDependencies": {},
-  "main":"eserver.js",
   "scripts": {
     "start": "node eserver.js"
   },
