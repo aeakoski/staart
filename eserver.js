@@ -1,13 +1,14 @@
 var express = require('express')
 var request = require('superagent')
 var path = require('path')
-var keys = require('./keys')
 var requestIntervall = (1000 * 60 * 60)
 
 var app = express()
 
-var clientID = keys.clientID
-var clientSecret = keys.clientSecret
+const PORT = process.env.PORT || 8002;
+
+var clientID = process.env.CLIENT_ID
+var clientSecret = process.env.CLIENT_SECRET
 var apiUrl = 'https://api.artsy.net/api/tokens/xapp_token'
 var xappToken
 var artistLink
